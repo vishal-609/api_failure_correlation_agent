@@ -16,6 +16,10 @@ def main():
     
     failures_df = extract_failures(df)
     print(f"FAILURE EXTRACTION COMPLETED: {len(failures_df)} failure events found.")
+
+    print("\n--- ERROR COUNT BY SYSTEM ---")
+    print(failures_df[failures_df['eventType'] == 'ERROR']['system'].value_counts())
+    print("-----------------------------\n")
     
     results = analyze_transactions(failures_df) 
     analyses = []

@@ -37,8 +37,14 @@ Timeline:
 {timeline}
 
 Instructions:
-Identify the root cause using the dependency chain (the deepest failing system is the likely cause).
-Explain the reason briefly.
+You must determine the Root Cause strictly by isolating the deepest failing system in the Dependency Chain. 
+Follow this exact step-by-step algorithm:
+Step 1: Identify the VERY LAST system at the end of the Dependency Chain.
+Step 2: Check if that specific system appears in the "Failure Events" list with an ERROR.
+Step 3: If YES, that system is your Root Cause. You are done.
+Step 4: If NO, move one step backwards up the Dependency Chain to the previous system and repeat Step 2.
+
+Explain the reason briefly by stating the algorithm's result.
 Suggest practical fixes.
 
 STRICT OUTPUT FORMAT:

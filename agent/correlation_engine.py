@@ -7,7 +7,7 @@ def analyze_transactions(df):
     results = []
     
     df = df.sort_values(by="timestamp")
-    grouped = df.groupby("correlationId")
+    grouped = df.groupby("correlationId", sort=False)
     
     for i, (cid, group) in enumerate(grouped):
         if i == 20:

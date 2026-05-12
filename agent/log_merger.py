@@ -59,6 +59,9 @@ def parse_logs():
                     elif "GET" in msg:
                         event_type = "MESSAGE_GET"
                         details = msg.replace("GET ", "")
+                    elif "Error" in msg or "ERROR" in msg or "failed" in msg:
+                        event_type = "ERROR"
+                        details = msg
 
                     all_events.append([ts, cid, "MQ", event_type, details])
 
