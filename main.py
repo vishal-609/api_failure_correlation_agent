@@ -6,6 +6,7 @@ from agent.correlation_engine import analyze_transactions
 from agent.llm_analyzer import analyze_transaction
 from agent.reporter import generate_report, save_report
 from config import CSV_FILE_PATH, OUTPUT_FILE_PATH
+from agent.email_notifier import send_alert_email
 
 def main():
     start_time = time.time()
@@ -38,6 +39,8 @@ def main():
 
     report = generate_report(results, analyses)
     save_report(report, OUTPUT_FILE_PATH)
+    
+    send_alert_email(report)
 
     end_time = time.time()
     total_time = end_time - start_time
