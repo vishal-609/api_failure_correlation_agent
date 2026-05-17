@@ -10,12 +10,12 @@ def generate_report(results, analyses):
     for item, analysis in zip(results, analyses):
         report_lines.append(f"--- Transaction ({item['correlationId']}) ---")
         systems = list(set(e["system"] for e in item["events"]))
-        report_lines.append(f"System s Involved: {systems}")
+        report_lines.append(f"Systems Involved: {systems}")
 
         if item["failures"]:
             report_lines.append("Failures:")
             for f in item["failures"]:
-                report_lines.append(f"{f.get('system', '')} - {f.get('eventType', '')} - {f.get('details', '')}")
+                report_lines.append(f"{f.get('timestamp', 'Unknown')} - {f.get('system', '')} - {f.get('eventType', '')} - {f.get('details', '')}")
         else:
             report_lines.append("Failures: None")
 
