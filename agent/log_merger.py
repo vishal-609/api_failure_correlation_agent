@@ -1,6 +1,7 @@
 import re
 import csv
 import os
+from config import COLUMN_TIMESTAMP, COLUMN_CORRELATION_ID, COLUMN_SYSTEM, COLUMN_EVENT_TYPE, COLUMN_DETAILS
 
 def parse_logs():
     all_events = []
@@ -107,7 +108,7 @@ def parse_logs():
 
     with open(output_path, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["timestamp", "correlationId", "system", "eventType", "details_or_flowName"])
+        writer.writerow([COLUMN_TIMESTAMP, COLUMN_CORRELATION_ID, COLUMN_SYSTEM, COLUMN_EVENT_TYPE, COLUMN_DETAILS])
         writer.writerows(all_events)
 
 if __name__ == "__main__":

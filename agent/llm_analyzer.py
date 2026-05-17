@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
+from config import COLUMN_CORRELATION_ID, COLUMN_SYSTEM, COLUMN_EVENT_TYPE, COLUMN_DETAILS, COLUMN_TIMESTAMP
 
 load_dotenv()
 
@@ -14,14 +15,13 @@ client = OpenAI(
 )
 
 def analyze_transaction(item):
-    cid = item.get("correlationId", "UNKNOWN")
+    cid = item.get(COLUMN_CORRELATION_ID, "UNKNOWN")
     failures = item.get("failures", [])
     events = item.get("events", [])
     chain = item.get("dependency_chain", "None")
 
-
-    failure_text = "\n".join([f"{f.get('system', 'Unknown')} - {f.get('eventType', 'Unknown')} - {f.get('details', '')}" for f in failures])
-    timeline = "\n".join([f"{e.get('timestamp', 'Unknown')} - {e.get('system', 'Unknown')} - {e.get('eventType', 'Unknown')} - {e.get('details', '')}" for e in events])
+    failure_text = "\n".join([f"{f.get(COLUMN_SYSTEM, 'Unknown')} - {f.get(COLUMN_EVENT_TYPE, 'Unknown')} - {f.get(COLUMN_DETAILS, '')}" for f in failures])
+    timeline = "\n".join([f"{e.get(COLUMN_TIMESTAMP, 'Unknown')} - {e.get(COLUMN_SYSTEM, 'Unknown')} - {e.get(COLUMN_EVENT_TYPE, 'Unknown')} - {e.get(COLUMN_DETAILS, '')}" for e in events])
 
     prompt = f"""You are an expert Site Reliability Engineer.
 

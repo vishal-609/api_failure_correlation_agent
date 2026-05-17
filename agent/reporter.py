@@ -1,4 +1,5 @@
 import os
+from config import COLUMN_CORRELATION_ID, COLUMN_SYSTEM, COLUMN_EVENT_TYPE, COLUMN_TIMESTAMP
 
 def generate_report(results, analyses):
     report_lines = [
@@ -8,14 +9,14 @@ def generate_report(results, analyses):
     ]
 
     for item, analysis in zip(results, analyses):
-        report_lines.append(f"--- Transaction ({item['correlationId']}) ---")
-        systems = list(set(e["system"] for e in item["events"]))
+        report_lines.append(f"--- Transaction ({item[COLUMN_CORRELATION_ID]}) ---")
+        systems = list(set(e[COLUMN_SYSTEM] for e in item["events"]))
         report_lines.append(f"Systems Involved: {systems}")
 
         if item["failures"]:
             report_lines.append("Failures:")
             for f in item["failures"]:
-                report_lines.append(f"{f.get('timestamp', 'Unknown')} - {f.get('system', '')} - {f.get('eventType', '')} - {f.get('details', '')}")
+                report_lines.append(f"{f.get(COLUMN_TIMESTAMP, 'Unknown')} - {f.get(COLUMN_SYSTEM, '')} - {f.get(COLUMN_EVENT_TYPE, '')} - {f.get('details', '')}")
         else:
             report_lines.append("Failures: None")
 
