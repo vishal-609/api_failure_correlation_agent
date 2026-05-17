@@ -1,69 +1,165 @@
 ===== TRANSACTION FAILURE REPORT =====
 
-Total Transactions Analyzed: 3
+Total Transactions Analyzed: 10
 
 ==================================================
 
 --- Transaction (ebc0e3a9-92a) ---
-Systems Involved: ['APP_CONNECT', 'MQ', 'API']
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
 Failures:
 2026-04-28T05:03:42.015153Z - API - ERROR - StatusCode=401 Latency=103ms
 2026-04-28T05:03:42.015153Z - MQ - ERROR - Message failed processing Status=401
 2026-04-28T05:03:42.015153Z - APP_CONNECT - ERROR - Status=401
 
 AI Analysis:
-Root Cause: APP_CONNECT
-
-Reason: The algorithm started from the last system in the dependency chain, APP_CONNECT. Since APP_CONNECT appears in the Failure Events list with an ERROR and its upstream systems (MQ and API) also had errors but were closer to the start of the chain, we confirm APP_CONNECT as the root cause because it is the deepest failing system in the chain.
-
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
 Fix:
-Step 1: Review APP_CONNECT logs to identify the specific exception or error message that caused the ERROR.
-Step 2: Investigate the recent changes or deployments made to APP_CONNECT to see if any of them could have introduced the error.
-Step 3: Test APP_CONNECT in isolation to reproduce the ERROR and verify the fix before deploying it to production.
+Step 1: Investigate the cause of the MQ error
+Step 2: Resolve the issue with the MQ system
+Step 3: Verify that the MQ system is functioning correctly and the error is resolved
 --------------------------------------------------
 
 --- Transaction (86342255-e17) ---
-Systems Involved: ['APP_CONNECT', 'MQ', 'API']
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
 Failures:
 2026-04-28T05:03:42.035153Z - APP_CONNECT - ERROR - Status=500
 2026-04-28T05:03:42.035153Z - MQ - ERROR - Message failed processing Status=500
 2026-04-28T05:03:42.035153Z - API - ERROR - StatusCode=500 Latency=279ms
 
 AI Analysis:
-To determine the Root Cause, I will follow the step-by-step algorithm.
-
-Step 1: Identify the VERY LAST system at the end of the Dependency Chain.
-The Dependency Chain is API -> APP_CONNECT -> MQ. Therefore, the VERY LAST system at the end of the Dependency Chain is MQ.
-
-Step 2: Check if that specific system appears in the "Failure Events" list with an ERROR.
-MQ appears in the "Failure Events" list with an ERROR: MQ - ERROR.
-
-Step 3: Since MQ appears in the "Failure Events" list with an ERROR, MQ is the Root Cause.
-
 Root Cause: MQ
-
-Reason: MQ is the deepest failing system in the Dependency Chain.
-
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
 Fix:
-Step 1: Investigate the MQ error logs to determine the cause of the error.
-Step 2: Check the MQ configuration and settings to ensure they are correct.
-Step 3: Restart the MQ service to see if the issue resolves.
+Step 1: Investigate the cause of the MQ ERROR.
+Step 2: Resolve the issue with the MQ system to prevent future errors.
+Step 3: Verify that the MQ system is functioning correctly and the Dependency Chain is stable.
 --------------------------------------------------
 
 --- Transaction (e065eb19-c8f) ---
-Systems Involved: ['APP_CONNECT', 'MQ', 'API']
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
 Failures:
 2026-04-28T05:03:42.045153Z - API - ERROR - StatusCode=500 Latency=487ms
 2026-04-28T05:03:42.045153Z - MQ - ERROR - Message failed processing Status=500
 2026-04-28T05:03:42.045153Z - APP_CONNECT - ERROR - Status=500
 
 AI Analysis:
-Root Cause: APP_CONNECT
-
-Reason: The algorithm identified APP_CONNECT as the deepest failing system in the dependency chain. It appears in the Failure Events list with an ERROR and is the last system to fail in sequence.
-
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
 Fix:
-Step 1: Verify APP_CONNECT logs to identify the specific error causing the failure.
-Step 2: Check APP_CONNECT's configuration and environment for any issues or misconfigurations.
-Step 3: Test APP_CONNECT in isolation to reproduce the error and implement a fix.
+Step 1: Investigate the cause of the MQ ERROR.
+Step 2: Resolve the issue with the MQ system to prevent future errors.
+Step 3: Verify that the MQ system is functioning correctly and the Dependency Chain is stable.
+--------------------------------------------------
+
+--- Transaction (6ebf9a72-a4d) ---
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
+Failures:
+2026-04-28T05:03:42.065153Z - APP_CONNECT - ERROR - Status=401
+2026-04-28T05:03:42.065153Z - MQ - ERROR - Message failed processing Status=401
+2026-04-28T05:03:42.065153Z - API - ERROR - StatusCode=401 Latency=370ms
+
+AI Analysis:
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
+Fix:
+Step 1: Investigate the cause of the MQ ERROR.
+Step 2: Resolve the issue with the MQ system to prevent future errors.
+Step 3: Verify that the MQ system is functioning correctly and the Dependency Chain is stable.
+--------------------------------------------------
+
+--- Transaction (6484269b-fdd) ---
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
+Failures:
+2026-04-28T05:03:42.535153Z - API - ERROR - StatusCode=502 Latency=142ms
+2026-04-28T05:03:42.535153Z - MQ - ERROR - Message failed processing Status=502
+2026-04-28T05:03:42.535153Z - APP_CONNECT - ERROR - Status=502
+
+AI Analysis:
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
+Fix:
+Step 1: Investigate the cause of the MQ ERROR
+Step 2: Resolve the issue with the MQ system
+Step 3: Verify that the MQ system is functioning correctly and the error is resolved
+--------------------------------------------------
+
+--- Transaction (9cf4cb45-ef7) ---
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
+Failures:
+2026-04-28T05:03:42.725153Z - MQ - ERROR - Message failed processing Status=502
+2026-04-28T05:03:42.725153Z - APP_CONNECT - ERROR - Status=502
+2026-04-28T05:03:42.725153Z - API - ERROR - StatusCode=502 Latency=151ms
+
+AI Analysis:
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
+Fix:
+Step 1: Investigate the cause of the MQ ERROR.
+Step 2: Resolve the issue with the MQ system to prevent future errors.
+Step 3: Verify that the MQ system is functioning correctly and the Dependency Chain is stable.
+--------------------------------------------------
+
+--- Transaction (40092e22-ae1) ---
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
+Failures:
+2026-04-28T05:03:42.885153Z - API - ERROR - StatusCode=500 Latency=342ms
+2026-04-28T05:03:42.885153Z - MQ - ERROR - Message failed processing Status=500
+2026-04-28T05:03:42.885153Z - APP_CONNECT - ERROR - Status=500
+
+AI Analysis:
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain and it has an ERROR.
+Fix:
+Step 1: Investigate the cause of the MQ error
+Step 2: Resolve the issue with the MQ system
+Step 3: Verify that the MQ system is functioning correctly and the error is resolved
+--------------------------------------------------
+
+--- Transaction (1a4b0722-528) ---
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
+Failures:
+2026-04-28T05:03:42.925153Z - APP_CONNECT - ERROR - Status=502
+2026-04-28T05:03:42.925153Z - MQ - ERROR - Message failed processing Status=502
+2026-04-28T05:03:42.925153Z - API - ERROR - StatusCode=502 Latency=209ms
+
+AI Analysis:
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
+Fix:
+Step 1: Investigate the cause of the MQ ERROR.
+Step 2: Resolve the issue with the MQ system to prevent future errors.
+Step 3: Verify that the MQ system is functioning correctly and the Dependency Chain is stable.
+--------------------------------------------------
+
+--- Transaction (b9e88995-377) ---
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
+Failures:
+2026-04-28T05:03:43.125153Z - API - ERROR - StatusCode=401 Latency=320ms
+2026-04-28T05:03:43.125153Z - MQ - ERROR - Message failed processing Status=401
+2026-04-28T05:03:43.125153Z - APP_CONNECT - ERROR - Status=401
+
+AI Analysis:
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
+Fix:
+Step 1: Investigate the cause of the MQ error to determine the underlying issue.
+Step 2: Check the MQ configuration and logs to identify any potential problems or errors.
+Step 3: Resolve the MQ error by fixing the underlying issue, which may involve restarting the service, checking network connectivity, or adjusting configuration settings.
+--------------------------------------------------
+
+--- Transaction (556b3e15-a76) ---
+Systems Involved: ['API', 'MQ', 'APP_CONNECT']
+Failures:
+2026-04-28T05:03:43.205153Z - APP_CONNECT - ERROR - Status=401
+2026-04-28T05:03:43.205153Z - MQ - ERROR - Message failed processing Status=401
+2026-04-28T05:03:43.205153Z - API - ERROR - StatusCode=401 Latency=322ms
+
+AI Analysis:
+Root Cause: MQ
+Reason: MQ is the deepest failing system in the Dependency Chain with an ERROR.
+Fix:
+Step 1: Investigate the cause of the MQ ERROR.
+Step 2: Resolve the issue with the MQ system to prevent future errors.
+Step 3: Verify that the MQ system is functioning correctly and the Dependency Chain is stable.
 --------------------------------------------------
