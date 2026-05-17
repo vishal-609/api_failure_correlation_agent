@@ -1,213 +1,33 @@
 ===== TRANSACTION FAILURE REPORT =====
 
-Total Transactions Analyzed: 20
+Total Transactions Analyzed: 10
 
 ==================================================
 
 --- Transaction (ebc0e3a9-92a) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-API - ERROR - StatusCode=401 Latency=103ms
-MQ - ERROR - Message failed processing Status=401
-APP_CONNECT - ERROR - Status=401
+2026-04-28T05:03:42.015153Z - API - ERROR - StatusCode=401 Latency=103ms
+2026-04-28T05:03:42.015153Z - MQ - ERROR - Message failed processing Status=401
+2026-04-28T05:03:42.015153Z - APP_CONNECT - ERROR - Status=401
 
 AI Analysis:
 Root Cause: MQ
 
-Reason: MQ is the deepest system in the dependency chain with an error event, indicating that it failed to process a message with a 401 status.
+Reason: MQ is the last system in the dependency chain and it has an error event with message "Message failed processing Status=401".
 
 Fix:
-Step 1: Verify that the MQ server is properly configured and reachable by APP_CONNECT.
-Step 2: Check the MQ error logs to determine the cause of the 401 status and adjust the authentication or authorization settings accordingly.
-Step 3: Test the MQ message processing with a sample message to ensure that the issue is resolved.
+Step 1: Investigate the MQ logs to determine the cause of the message processing failure with Status=401.
+Step 2: Verify that the MQ queue REQUEST.Q is properly configured and has no issues with permissions or message routing.
+Step 3: Check the APP_CONNECT system to ensure it is properly sending messages to MQ and handling any potential errors.
 --------------------------------------------------
 
 --- Transaction (86342255-e17) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-APP_CONNECT - ERROR - Status=500
-MQ - ERROR - Message failed processing Status=500
-API - ERROR - StatusCode=500 Latency=279ms
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: MQ is the last system in the dependency chain and it appears in the Failure Events list with an ERROR, indicating that it is the deepest failing system.
-
-Fix:
-Step 1: Investigate the MQ error logs to determine the cause of the message processing failure.
-Step 2: Check the MQ queue REQUEST.Q for any stuck or poisoned messages that may be causing the error.
-Step 3: Implement monitoring and alerting on MQ message processing failures to quickly detect and resolve similar issues in the future.
---------------------------------------------------
-
---- Transaction (e065eb19-c8f) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-API - ERROR - StatusCode=500 Latency=487ms
-MQ - ERROR - Message failed processing Status=500
-APP_CONNECT - ERROR - Status=500
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: MQ is the deepest failing system in the dependency chain, as it appears in the Failure Events list with an ERROR, indicating that it failed to process a message.
-
-Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a configuration issue or a resource constraint.
-Step 2: Check the message queue for any stuck or poisoned messages that may be causing the failure, and take corrective action to remove or reprocess them.
-Step 3: Verify that the MQ system has sufficient resources, such as CPU, memory, and disk space, to handle the message processing workload.
---------------------------------------------------
-
---- Transaction (6ebf9a72-a4d) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-APP_CONNECT - ERROR - Status=401
-MQ - ERROR - Message failed processing Status=401
-API - ERROR - StatusCode=401 Latency=370ms
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: MQ is the last system in the dependency chain and it has an error with a status code of 401, indicating that it is the deepest failing system.
-
-Fix:
-Step 1: Verify that MQ is properly configured and that the message processing is correctly set up.
-Step 2: Check the authentication and authorization settings for MQ to ensure that it can correctly process messages.
-Step 3: Review the logs and metrics for MQ to determine the specific cause of the error and implement a fix.
---------------------------------------------------
-
---- Transaction (6484269b-fdd) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-API - ERROR - StatusCode=502 Latency=142ms
-MQ - ERROR - Message failed processing Status=502
-APP_CONNECT - ERROR - Status=502
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: MQ is the deepest failing system in the dependency chain with an error event.
-
-Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure.
-Step 2: Check the MQ configuration and queue settings to ensure they are correct and not causing the failure.
-Step 3: Verify that the messages being sent to the MQ queue are valid and properly formatted to prevent processing errors.
---------------------------------------------------
-
---- Transaction (9cf4cb45-ef7) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-MQ - ERROR - Message failed processing Status=502
-APP_CONNECT - ERROR - Status=502
-API - ERROR - StatusCode=502 Latency=151ms
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: The algorithm identified MQ as the root cause since it is the last system in the dependency chain and appears in the failure events list with an error.
-
-Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure.
-Step 2: Check the MQ configuration and ensure that it is properly set up to handle message processing.
-Step 3: Implement monitoring and alerting on the MQ system to quickly detect and respond to similar issues in the future.
---------------------------------------------------
-
---- Transaction (40092e22-ae1) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-API - ERROR - StatusCode=500 Latency=342ms
-MQ - ERROR - Message failed processing Status=500
-APP_CONNECT - ERROR - Status=500
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: The algorithm starts from the last system in the dependency chain, which is MQ. Since MQ appears in the Failure Events list with an ERROR, it is identified as the root cause.
-
-Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a database connection issue or a problem with the message itself.
-Step 2: Check the MQ configuration and settings to ensure that they are correct and functioning as expected.
-Step 3: Implement monitoring and alerting for MQ message processing failures to quickly detect and respond to similar issues in the future.
---------------------------------------------------
-
---- Transaction (1a4b0722-528) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-APP_CONNECT - ERROR - Status=502
-MQ - ERROR - Message failed processing Status=502
-API - ERROR - StatusCode=502 Latency=209ms
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: MQ is the last system in the dependency chain and it has an error event with a status of 502, indicating a failure in processing a message.
-
-Fix:
-Step 1: Investigate the MQ error logs to determine the cause of the message processing failure.
-Step 2: Check the MQ queue REQUEST.Q for any stuck or poison messages that may be causing the error.
-Step 3: Implement monitoring and alerting on MQ message processing failures to quickly detect and resolve similar issues in the future.
---------------------------------------------------
-
---- Transaction (b9e88995-377) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-API - ERROR - StatusCode=401 Latency=320ms
-MQ - ERROR - Message failed processing Status=401
-APP_CONNECT - ERROR - Status=401
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: MQ is the deepest failing system in the dependency chain, as it appears in the failure events list with an error after APP_CONNECT and before API in the dependency chain.
-
-Fix:
-Step 1: Verify the message processing logic in MQ to handle messages correctly and not return a 401 status.
-Step 2: Investigate the configuration and authentication mechanisms for MQ to ensure they are properly set up.
-Step 3: Review the message payload and headers to ensure they conform to the expected format for processing in MQ.
---------------------------------------------------
-
---- Transaction (556b3e15-a76) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-APP_CONNECT - ERROR - Status=401
-MQ - ERROR - Message failed processing Status=401
-API - ERROR - StatusCode=401 Latency=322ms
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: MQ is the deepest system in the dependency chain with an error event, indicating that it failed to process a message with a 401 status.
-
-Fix:
-Step 1: Verify that MQ is properly configured to handle messages from APP_CONNECT, ensuring that the correct authentication and authorization mechanisms are in place.
-Step 2: Investigate the message that failed processing in MQ to determine if there are any issues with the message format or content that could be causing the 401 error.
-Step 3: Review APP_CONNECT's configuration to ensure that it is correctly sending authentication information with the message to MQ.
---------------------------------------------------
-
---- Transaction (79ac7833-3a7) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-API - ERROR - StatusCode=401 Latency=106ms
-MQ - ERROR - Message failed processing Status=401
-APP_CONNECT - ERROR - Status=401
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: The deepest failing system in the dependency chain is MQ, which is the last system to fail with an error status of 401.
-
-Fix:
-Step 1: Verify the configuration and credentials used by MQ for message processing to ensure they are correct and not causing the 401 error.
-Step 2: Check the message format and content being processed by MQ to ensure it conforms to expected standards and does not trigger authentication errors.
-Step 3: Review and adjust the authentication and authorization settings for MQ to properly handle messages and prevent 401 errors from occurring.
---------------------------------------------------
-
---- Transaction (92c75270-0f0) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-APP_CONNECT - ERROR - Status=502
-MQ - ERROR - Message failed processing Status=502
-API - ERROR - StatusCode=502 Latency=38ms
+2026-04-28T05:03:42.035153Z - APP_CONNECT - ERROR - Status=500
+2026-04-28T05:03:42.035153Z - MQ - ERROR - Message failed processing Status=500
+2026-04-28T05:03:42.035153Z - API - ERROR - StatusCode=500 Latency=279ms
 
 AI Analysis:
 Root Cause: MQ
@@ -215,151 +35,153 @@ Root Cause: MQ
 Reason: The algorithm started from the last system in the dependency chain, which is MQ. Since MQ appears in the Failure Events list with an ERROR, MQ is identified as the root cause of the failure.
 
 Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a configuration issue, resource constraint, or a bug in the message processing code.
-Step 2: Check the message queue for any stuck or poisoned messages that may be causing the failure, and take corrective action to clear or reprocess them.
-Step 3: Verify that the MQ system is properly configured and resourced, and consider implementing additional monitoring and alerting to detect similar issues in the future.
+Step 1: Investigate the MQ system logs to determine the cause of the message processing failure, such as a queue overflow or a configuration issue.
+Step 2: Check the MQ system resources, such as CPU, memory, and disk space, to ensure they are not exhausted.
+Step 3: Verify that the MQ message processing logic is correctly implemented and that any recent changes to the MQ system or its configuration have not introduced the error.
 --------------------------------------------------
 
---- Transaction (1435cbb5-c28) ---
+--- Transaction (e065eb19-c8f) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-APP_CONNECT - ERROR - Status=504
-API - ERROR - StatusCode=504 Latency=355ms
-MQ - ERROR - Message failed processing Status=504
+2026-04-28T05:03:42.045153Z - API - ERROR - StatusCode=500 Latency=487ms
+2026-04-28T05:03:42.045153Z - MQ - ERROR - Message failed processing Status=500
+2026-04-28T05:03:42.045153Z - APP_CONNECT - ERROR - Status=500
 
 AI Analysis:
-Root Cause: MQ
+Root Cause: APP_CONNECT
 
-Reason: The error occurred in MQ as the deepest failing system in the dependency chain.
+Reason: The algorithm started from the last system in the dependency chain, which is MQ, and moved backwards. MQ has an error, but we need to check if it's the deepest failing system. Since APP_CONNECT also has an error and is before MQ in the dependency chain, we check if APP_CONNECT is the deepest failing system. As APP_CONNECT appears in the "Failure Events" list with an ERROR and there's no system after it in the dependency chain that also has an error, APP_CONNECT is the root cause.
 
 Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure with Status=504.
-Step 2: Check the MQ queue REQUEST.Q for any issues with message processing or queue configuration.
-Step 3: Verify that the MQ system has sufficient resources and is properly configured to handle message processing.
+Step 1: Check the logs of APP_CONNECT for any exceptions or errors that occurred at 2026-04-28T05:03:42.045153Z to identify the specific issue.
+Step 2: Investigate the recent changes or deployments made to APP_CONNECT to see if there's a correlation with the error.
+Step 3: Implement additional monitoring and logging in APP_CONNECT to quickly detect and diagnose similar issues in the future.
 --------------------------------------------------
 
---- Transaction (b9389eed-ec7) ---
+--- Transaction (6ebf9a72-a4d) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-APP_CONNECT - ERROR - Status=502
-API - ERROR - StatusCode=502 Latency=381ms
-MQ - ERROR - Message failed processing Status=502
+2026-04-28T05:03:42.065153Z - APP_CONNECT - ERROR - Status=401
+2026-04-28T05:03:42.065153Z - MQ - ERROR - Message failed processing Status=401
+2026-04-28T05:03:42.065153Z - API - ERROR - StatusCode=401 Latency=370ms
 
 AI Analysis:
 Root Cause: MQ
 
-Reason: MQ is the last system in the dependency chain and it has an error event with a message "Message failed processing Status=502".
+Reason: MQ is the last system in the dependency chain and it has an error with status 401, indicating a failure in processing a message.
 
 Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure.
-Step 2: Check the MQ configuration and settings to ensure that it is properly set up to process messages.
-Step 3: Verify that the message being sent to MQ is valid and properly formatted to prevent processing errors.
+Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a configuration issue or a problem with the message itself.
+Step 2: Verify that the MQ system is properly configured and that there are no connectivity issues with the APP_CONNECT system.
+Step 3: Implement monitoring and alerting for MQ errors to quickly detect and respond to similar issues in the future.
 --------------------------------------------------
 
---- Transaction (9debcc99-ad4) ---
+--- Transaction (6484269b-fdd) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-MQ - ERROR - Message failed processing Status=500
-API - ERROR - StatusCode=500 Latency=252ms
-APP_CONNECT - ERROR - Status=500
+2026-04-28T05:03:42.535153Z - API - ERROR - StatusCode=502 Latency=142ms
+2026-04-28T05:03:42.535153Z - MQ - ERROR - Message failed processing Status=502
+2026-04-28T05:03:42.535153Z - APP_CONNECT - ERROR - Status=502
 
 AI Analysis:
 Root Cause: MQ
 
-Reason: The algorithm starts from the last system in the dependency chain, which is MQ. Since MQ appears in the Failure Events list with an ERROR, it is identified as the root cause.
-
-Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a database connection issue or a problem with the message itself.
-Step 2: Check the MQ configuration and settings to ensure they are correct and sufficient for handling the message volume.
-Step 3: Implement monitoring and alerting for MQ message processing failures to quickly detect and respond to similar issues in the future.
---------------------------------------------------
-
---- Transaction (beaeea7a-489) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-APP_CONNECT - ERROR - Status=504
-API - ERROR - StatusCode=504 Latency=351ms
-MQ - ERROR - Message failed processing Status=504
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: The algorithm identified MQ as the root cause because it is the last system in the dependency chain and it appears in the "Failure Events" list with an ERROR.
+Reason: MQ is the deepest failing system in the dependency chain with an error event "Message failed processing Status=502".
 
 Fix:
 Step 1: Investigate the MQ logs to determine the cause of the message processing failure.
-Step 2: Check the MQ configuration and settings to ensure that it is properly set up to handle message processing.
-Step 3: Implement additional monitoring and alerting on the MQ system to quickly detect and respond to similar failures in the future.
+Step 2: Verify that the MQ queue REQUEST.Q is properly configured and has sufficient resources.
+Step 3: Check the message payload and retry processing the failed message to ensure it can be successfully processed by MQ.
 --------------------------------------------------
 
---- Transaction (57981989-69b) ---
+--- Transaction (9cf4cb45-ef7) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-MQ - ERROR - Message failed processing Status=500
-APP_CONNECT - ERROR - Status=500
-API - ERROR - StatusCode=500 Latency=156ms
+2026-04-28T05:03:42.725153Z - MQ - ERROR - Message failed processing Status=502
+2026-04-28T05:03:42.725153Z - APP_CONNECT - ERROR - Status=502
+2026-04-28T05:03:42.725153Z - API - ERROR - StatusCode=502 Latency=151ms
 
 AI Analysis:
 Root Cause: MQ
 
-Reason: The algorithm started from the last system in the dependency chain, which is MQ. Since MQ appears in the Failure Events list with an ERROR, it is identified as the root cause.
-
-Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a configuration issue or a resource constraint.
-Step 2: Check the MQ queue REQUEST.Q for any stuck or poisoned messages that may be causing the failure.
-Step 3: Implement monitoring and alerting on MQ message processing failures to prevent similar issues in the future.
---------------------------------------------------
-
---- Transaction (1dafdb38-731) ---
-Systems Involved: ['MQ', 'APP_CONNECT', 'API']
-Failures:
-API - ERROR - StatusCode=502 Latency=393ms
-MQ - ERROR - Message failed processing Status=502
-APP_CONNECT - ERROR - Status=502
-
-AI Analysis:
-Root Cause: MQ
-
-Reason: The algorithm identified MQ as the root cause because it is the last system in the dependency chain and it has an error event listed with a Status=502.
+Reason: The algorithm identified MQ as the root cause because it is the last system in the dependency chain and it has an error event with a message "Message failed processing Status=502" which occurred at the same time as the other error events.
 
 Fix:
 Step 1: Investigate the MQ logs to determine the cause of the message processing failure.
-Step 2: Verify that the MQ queue REQUEST.Q is not full and that there are no issues with the message processing configuration.
-Step 3: Check the APP_CONNECT logs to see if there are any related errors that may indicate a problem with the interaction between APP_CONNECT and MQ.
+Step 2: Check the MQ configuration and settings to ensure that it is properly set up to handle messages.
+Step 3: Verify that the message being sent to MQ is valid and can be processed correctly. 
+
+Note that the fix steps are general and may need to be adjusted based on the specific details of the system and the error.
 --------------------------------------------------
 
---- Transaction (535fe6ba-338) ---
+--- Transaction (40092e22-ae1) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-MQ - ERROR - Message failed processing Status=500
-APP_CONNECT - ERROR - Status=500
-API - ERROR - StatusCode=500 Latency=317ms
+2026-04-28T05:03:42.885153Z - API - ERROR - StatusCode=500 Latency=342ms
+2026-04-28T05:03:42.885153Z - MQ - ERROR - Message failed processing Status=500
+2026-04-28T05:03:42.885153Z - APP_CONNECT - ERROR - Status=500
 
 AI Analysis:
 Root Cause: MQ
 
-Reason: The algorithm started from the last system in the dependency chain, which is MQ. Since MQ appears in the Failure Events list with an ERROR, it is identified as the root cause.
+Reason: The algorithm started from the last system in the dependency chain, which is MQ. Since MQ appears in the Failure Events list with an ERROR, it is the deepest failing system and therefore the Root Cause.
 
 Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a configuration issue or a resource constraint.
-Step 2: Check the message queue REQUEST.Q for any stuck or poisoned messages that may be causing the failure.
-Step 3: Implement monitoring and alerting on MQ message processing failures to detect similar issues in the future.
+Step 1: Investigate the MQ logs to determine the cause of the message processing failure, such as a configuration issue or a code bug.
+Step 2: Check the message queue REQUEST.Q for any stuck or poison messages that may be causing the failure.
+Step 3: Implement a retry mechanism or a dead-letter queue to handle messages that fail processing, and refactor the MQ code to handle similar failures in the future.
 --------------------------------------------------
 
---- Transaction (af43840b-62b) ---
+--- Transaction (1a4b0722-528) ---
 Systems Involved: ['MQ', 'APP_CONNECT', 'API']
 Failures:
-API - ERROR - StatusCode=500 Latency=236ms
-MQ - ERROR - Message failed processing Status=500
-APP_CONNECT - ERROR - Status=500
+2026-04-28T05:03:42.925153Z - APP_CONNECT - ERROR - Status=502
+2026-04-28T05:03:42.925153Z - MQ - ERROR - Message failed processing Status=502
+2026-04-28T05:03:42.925153Z - API - ERROR - StatusCode=502 Latency=209ms
 
 AI Analysis:
 Root Cause: MQ
 
-Reason: MQ is the last system in the dependency chain and it has an error event with a status code of 500, indicating that it failed to process a message.
+Reason: MQ is the last system in the dependency chain and it has an error event with a status of 502, indicating that it failed to process a message.
 
 Fix:
-Step 1: Investigate the MQ logs to determine the cause of the message processing failure.
-Step 2: Check the message queue REQUEST.Q for any stuck or corrupted messages that may be causing the failure.
-Step 3: Implement additional monitoring and alerting on the MQ system to quickly detect and respond to similar failures in the future.
+Step 1: Investigate the MQ error logs to determine the cause of the message processing failure.
+Step 2: Check the MQ queue REQUEST.Q for any stuck or poison messages that may be causing the error.
+Step 3: Implement a retry mechanism for message processing in MQ to handle transient errors and prevent cascading failures.
+--------------------------------------------------
+
+--- Transaction (b9e88995-377) ---
+Systems Involved: ['MQ', 'APP_CONNECT', 'API']
+Failures:
+2026-04-28T05:03:43.125153Z - API - ERROR - StatusCode=401 Latency=320ms
+2026-04-28T05:03:43.125153Z - MQ - ERROR - Message failed processing Status=401
+2026-04-28T05:03:43.125153Z - APP_CONNECT - ERROR - Status=401
+
+AI Analysis:
+Root Cause: MQ
+
+Reason: MQ is the deepest failing system in the dependency chain with an error event.
+
+Fix:
+Step 1: Investigate the MQ logs to determine the cause of the message processing failure with Status=401.
+Step 2: Verify that the MQ configuration and credentials are correct, and that the message is properly formatted.
+Step 3: Implement additional monitoring and logging for MQ to quickly detect and diagnose similar issues in the future.
+--------------------------------------------------
+
+--- Transaction (556b3e15-a76) ---
+Systems Involved: ['MQ', 'APP_CONNECT', 'API']
+Failures:
+2026-04-28T05:03:43.205153Z - APP_CONNECT - ERROR - Status=401
+2026-04-28T05:03:43.205153Z - MQ - ERROR - Message failed processing Status=401
+2026-04-28T05:03:43.205153Z - API - ERROR - StatusCode=401 Latency=322ms
+
+AI Analysis:
+Root Cause: MQ
+
+Reason: The deepest failing system in the dependency chain is MQ, which appears in the Failure Events list with an ERROR.
+
+Fix:
+Step 1: Verify the authentication and authorization settings for MQ to ensure that it is properly configured to process messages.
+Step 2: Check the MQ logs to determine the cause of the 401 error and identify any potential issues with message processing.
+Step 3: Review the APP_CONNECT and API configurations to ensure that they are correctly sending and receiving messages to and from MQ.
 --------------------------------------------------

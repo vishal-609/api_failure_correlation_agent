@@ -1,7 +1,6 @@
 import pandas as pd
 import re
-
-DEPENDENCY_CHAIN = "API -> APP_CONNECT -> MQ"
+from config import DEPENDENCY_CHAIN
 
 def analyze_transactions(df):
     results = []
@@ -11,8 +10,8 @@ def analyze_transactions(df):
     
     for i, (cid, group) in enumerate(grouped):
 
-        # To run for entire log files => (remove i==20 & break)
-        if i == 20:
+        # To run for entire log files => (remove i==10 & break)
+        if i == 10:
             break
             
         events = []  # will hold every single log entry related to this transaction.

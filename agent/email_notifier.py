@@ -4,28 +4,27 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
-# Import the settings from your config file
 from config import SMTP_SERVER, SMTP_PORT, SENDER_EMAIL, RECEIVER_EMAIL
 
 load_dotenv()
 
-def send_alert_email(report_content):
+# We added correlation_id here
+def send_alert_email(report_content, correlation_id="Unknown"):
     password = os.getenv("SMTP_PASSWORD")
     
-    # Safety check
     if not password or not SENDER_EMAIL or not RECEIVER_EMAIL:
         print("\n[!] Email credentials missing in .env or config.py. Skipping email alert.")
         return
 
-    subject = "🚨 URGENT: API Failure Root Cause Analysis"
+    # Now the subject line is unique for every single transaction!
+    subject = f"🚨 URGENT: API Failure Root Cause - [{correlation_id}]"
     
     msg = MIMEMultipart()
     msg['From'] = SENDER_EMAIL
     msg['To'] = RECEIVER_EMAIL
     msg['Subject'] = subject
 
-    # Create the email body with your generated report
-    body = f"Team,\n\nThe AI Correlation Agent has detected new failures. Below is the automated root cause analysis:\n\n"
+    body = f"Team,\n\nThe AI Correlation Agent has detected a new failure. Below is the automated root cause analysis for transaction {correlation_id}:\n\n"
     body += "-" * 50 + "\n"
     body += report_content
     body += "\n" + "-" * 50 + "\n"
@@ -34,12 +33,10 @@ def send_alert_email(report_content):
     msg.attach(MIMEText(body, 'plain', 'utf-8'))
 
     try:
-        print("\nSending email alert to team...", end=" ", flush=True)
         server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls() # Secure the connection
+        server.starttls()
         server.login(SENDER_EMAIL, password)
         server.send_message(msg)
         server.quit()
-        print("Sent successfully! ✉️")
     except Exception as e:
-        print(f"\n[!] Failed to send email. Error: {str(e)}")
+        print(f"\n[!] Failed to send email for {correlation_id}. Error: {str(e)}")
