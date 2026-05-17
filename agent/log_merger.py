@@ -8,6 +8,9 @@ def parse_logs():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_dir = os.path.join(base_dir, 'data')
     
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    
     apic_path = os.path.join(data_dir, 'apic.log')
     mq_path = os.path.join(data_dir, 'mq.log')
     appconnect_path = os.path.join(data_dir, 'appconnect.log')
@@ -40,6 +43,8 @@ def parse_logs():
                         details = msg.split("Response ")[1]
 
                     all_events.append([ts, cid, "API", event_type, details])
+    else:
+        print(f"[!] Warning: APIC log not found at {apic_path}. Skipping.")
 
     if os.path.exists(mq_path):
         with open(mq_path, "r") as f:
@@ -64,6 +69,8 @@ def parse_logs():
                         details = msg
 
                     all_events.append([ts, cid, "MQ", event_type, details])
+    else:
+        print(f"[!] Warning: MQ log not found at {mq_path}. Skipping.")
 
     if os.path.exists(appconnect_path):
         with open(appconnect_path, "r") as f:
@@ -90,8 +97,13 @@ def parse_logs():
                         event_type = "TRANSFORM"
 
                     all_events.append([ts, cid, "APP_CONNECT", event_type, details])
+    else:
+        print(f"[!] Warning: AppConnect log not found at {appconnect_path}. Skipping.")
 
     all_events.sort(key=lambda x: x[0])
+
+    if not all_events:
+        print("[!] No log events parsed. Writing empty CSV with headers to prevent downstream errors.")
 
     with open(output_path, "w", newline="") as f:
         writer = csv.writer(f)

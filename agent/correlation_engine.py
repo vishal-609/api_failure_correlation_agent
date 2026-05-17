@@ -10,18 +10,20 @@ def analyze_transactions(df):
     grouped = df.groupby("correlationId", sort=False)
     
     for i, (cid, group) in enumerate(grouped):
+
+        # To run for entire log files => (remove i==20 & break)
         if i == 20:
             break
             
-        events = []
-        failures = []
+        events = []  # will hold every single log entry related to this transaction.
+        failures = [] # will hold failure log entry related to this transaction.
         
         for _, row in group.iterrows():
             event_data = {
                 "timestamp": row["timestamp"],
                 "system": row["system"],
                 "eventType": row["eventType"],
-                "details": row["details_or_flowName"]
+                "details": row.get("details_or_flowName", "")
             }
             events.append(event_data)
             
@@ -30,7 +32,7 @@ def analyze_transactions(df):
             if row["eventType"] == "ERROR":
                 is_failure = True
             
-            if pd.notna(row["details_or_flowName"]):
+            if pd.notna(row.get("details_or_flowName")):
                 match = re.search(r'Status(?:Code)?=(\d+)', str(row["details_or_flowName"]))
                 if match and not (200 <= int(match.group(1)) <= 299):
                     is_failure = True

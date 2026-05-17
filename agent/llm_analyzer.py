@@ -19,8 +19,6 @@ def analyze_transaction(item):
     events = item.get("events", [])
     chain = item.get("dependency_chain", "None")
 
-    if not failures:
-        return f"{cid} -> NO_FAILURE"
 
     failure_text = "\n".join([f"{f.get('system', 'Unknown')} - {f.get('eventType', 'Unknown')} - {f.get('details', '')}" for f in failures])
     timeline = "\n".join([f"{e.get('timestamp', 'Unknown')} - {e.get('system', 'Unknown')} - {e.get('eventType', 'Unknown')} - {e.get('details', '')}" for e in events])
