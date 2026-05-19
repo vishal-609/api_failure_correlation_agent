@@ -1,12 +1,12 @@
 import pandas as pd
 import re
-from config import DEPENDENCY_CHAIN, COLUMN_TIMESTAMP, COLUMN_CORRELATION_ID, COLUMN_SYSTEM, COLUMN_EVENT_TYPE, COLUMN_DETAILS
+from config import DEPENDENCY_CHAIN
 
 def analyze_transactions(df):
     results = []
     
-    df = df.sort_values(by=COLUMN_TIMESTAMP)
-    grouped = df.groupby(COLUMN_CORRELATION_ID, sort=False)
+    df = df.sort_values(by="timestamp")
+    grouped = df.groupby("correlationId", sort=False)
     
     for i, (cid, group) in enumerate(grouped):
 
@@ -19,20 +19,20 @@ def analyze_transactions(df):
         
         for _, row in group.iterrows():
             event_data = {
-                "timestamp": row[COLUMN_TIMESTAMP],
-                "system": row[COLUMN_SYSTEM],
-                "eventType": row[COLUMN_EVENT_TYPE],
-                "details": row.get(COLUMN_DETAILS, "")
+                "timestamp": row["timestamp"],
+                "system": row["system"],
+                "eventType": row["eventType"],
+                "details": row.get("details_or_flowName", "")
             }
             events.append(event_data)
             
             is_failure = False
             
-            if row[COLUMN_EVENT_TYPE] == "ERROR":
+            if row["eventType"] == "ERROR":
                 is_failure = True
             
-            if pd.notna(row.get(COLUMN_DETAILS)):
-                match = re.search(r'Status(?:Code)?=(\d+)', str(row[COLUMN_DETAILS]))
+            if pd.notna(row.get("details_or_flowName")):
+                match = re.search(r'Status(?:Code)?=(\d+)', str(row["details_or_flowName"]))
                 if match and not (200 <= int(match.group(1)) <= 299):
                     is_failure = True
                     

@@ -14,9 +14,4 @@ RECEIVER_EMAIL = "vishalreceiver.2002@gmail.com"
 # Dependency chain 
 DEPENDENCY_CHAIN = "API -> APP_CONNECT -> MQ"
 
-# --- LOG COLUMN HEADERS ---
-COLUMN_TIMESTAMP = "timestamp"
-COLUMN_CORRELATION_ID = "correlationId"
-COLUMN_SYSTEM = "system"
-COLUMN_EVENT_TYPE = "eventType"
-COLUMN_DETAILS = "details_or_flowName"
+
