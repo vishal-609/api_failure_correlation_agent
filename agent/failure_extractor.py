@@ -1,6 +1,7 @@
 import pandas as pd
 import re
 import os
+from config import STATUS_KEYWORDS
 
 def extract_failures(df):
     if df is None or df.empty or "eventType" not in df.columns:
@@ -8,6 +9,8 @@ def extract_failures(df):
 
     df = df.copy()
     failed_ids = set()
+
+    pattern = rf'(?:{"|".join(STATUS_KEYWORDS)})=(\d+)'
     
     for _, row in df.iterrows():
         if row["eventType"] == "ERROR":
@@ -15,7 +18,7 @@ def extract_failures(df):
             continue
             
         if pd.notna(row.get("details_or_flowName")):
-            match = re.search(r'Status(?:Code)?=(\d+)', str(row["details_or_flowName"]))
+            match = re.search(pattern, str(row["details_or_flowName"]), re.IGNORECASE)
             if match and not (200 <= int(match.group(1)) <= 299):
                 failed_ids.add(row["correlationId"])
 

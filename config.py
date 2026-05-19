@@ -1,3 +1,4 @@
+# Input and Output file paths
 CSV_FILE_PATH = "data/merged_logs.csv"
 OUTPUT_FILE_PATH = "output/correlation_report.txt"
 
@@ -14,4 +15,6 @@ RECEIVER_EMAIL = "vishalreceiver.2002@gmail.com"
 # Dependency chain 
 DEPENDENCY_CHAIN = "API -> APP_CONNECT -> MQ"
 
+# Status Code filtering (type all the corresponding keyword to status code in logs)
+STATUS_KEYWORDS = ["Status", "StatusCode", "code", "HttpCode"]
 
