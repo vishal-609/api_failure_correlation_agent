@@ -1,3 +1,5 @@
 __pycache__
 .env
 output/correlation_report.txt
+output/failed_logs.csv
+output/merged_logs.csv
