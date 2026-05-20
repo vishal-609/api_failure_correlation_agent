@@ -1,5 +1,5 @@
 # Input and Output file paths
-CSV_FILE_PATH = "data/merged_logs.csv"
+CSV_FILE_PATH = "output/merged_logs.csv"
 OUTPUT_FILE_PATH = "output/correlation_report.txt"
 
 # Delays

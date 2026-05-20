@@ -11,6 +11,10 @@ def parse_logs():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_dir = os.path.join(base_dir, 'data')
     
+    # Define the 'output' directory path and ensure it exists
+    output_dir = os.path.join(base_dir, 'output')
+    os.makedirs(output_dir, exist_ok=True)
+    
     # Create the 'data' folder if it doesn't exist yet
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
@@ -19,7 +23,7 @@ def parse_logs():
     apic_path = os.path.join(data_dir, 'apic.log')
     mq_path = os.path.join(data_dir, 'mq.log')
     appconnect_path = os.path.join(data_dir, 'appconnect.log')
-    output_path = os.path.join(data_dir, 'merged_logs.csv')
+    output_path = os.path.join(output_dir, 'merged_logs.csv')
 
     # Create a dynamic search pattern that catches any correlation ID format you defined in config.py
     id_pattern = rf'(?:\[(?:{"|".join(CORRELATION_KEYWORDS)}):\s+([^\]]+)\]|\[([^\]]+)\])'

@@ -39,13 +39,13 @@ def extract_failures(df):
 
     # Figure out exactly where this file is located on the computer to create a save folder
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(base_dir, 'data')
+    output_dir = os.path.join(base_dir, 'output')
     
-    # Create the 'data' folder if it doesn't already exist
-    os.makedirs(data_dir, exist_ok=True)
+    # Create the 'output' folder if it doesn't already exist
+    os.makedirs(output_dir, exist_ok=True)
     
     # Save our new table of failed transactions as a CSV file so we can look at it later
-    output_path = os.path.join(data_dir, 'failed_logs.csv')
+    output_path = os.path.join(output_dir, 'failed_logs.csv')
     failed_df.to_csv(output_path, index=False)
 
     # Return the filtered table back to whatever script called this function
