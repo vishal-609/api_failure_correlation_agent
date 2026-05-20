@@ -13,6 +13,7 @@ When a transaction fails across a complex microservice architecture, finding the
 ---
 
 ## 📁 Project Structure
+
 ```text
 api_failure_correlation_agent/
 │
@@ -41,69 +42,121 @@ api_failure_correlation_agent/
 └── run_agent.sh                # Mac/Linux/Git Bash launcher
 
 
-⚙️ Setup & Installation
+## ⚙️ Setup & Installation
 
-1. Clone or Download the Project :
+### 1️⃣ Clone or Download the Project
 
-Make sure all your files are in the main project folder.
+Download the repository or clone it using Git:
 
-2. Set Up a Virtual Environment:
+```bash
+git clone <your-repo-url>
 
-Open your terminal and run:
+Make sure all project files remain inside the main project folder.
 
-Bash
+2️⃣ Create a Virtual Environment
+
+Open your terminal inside the project folder and run:
+
 python -m venv venv
+3️⃣ Activate the Virtual Environment
+🪟 Windows
+venv\Scripts\activate
+🍎 Mac / 🐧 Linux
+source venv/bin/activate
+4️⃣ Install Dependencies
 
-3. Install Dependencies:
+Install all required Python packages:
 
-Activate your environment and install the required packages (Pandas, OpenAI, python-dotenv):
-
-Windows: venv\Scripts\activate
-
-Mac/Linux: source venv/bin/activate
-
-Bash
 pip install -r requirements.txt
 
-4. Create the .env File:
+This installs:
 
-Create a file named exactly .env in your main folder. Add your sensitive keys here (do not share this file!):
+Pandas
+OpenAI / Groq SDK
+python-dotenv
+and other required libraries
+5️⃣ Create the .env File
 
-Code snippet
+Create a file named exactly:
+
+.env
+
+Add your sensitive credentials inside it:
+
 GROQ_API_KEY=your_groq_api_key_here
 SMTP_PASSWORD=your_email_app_password_here
 
-🛠️ Configuration:
+⚠️ Never share or upload your .env file publicly.
 
-Open config.py to customize the agent for your specific logs:
+🛠️ Configuration
 
-STATUS_KEYWORDS: Add words your logs use for status codes (e.g., ["Status", "StatusCode", "HttpCode"]).
+Open:
 
-CORRELATION_KEYWORDS: Add words your logs use for tracking IDs (e.g., ["X-Correlation-ID", "CorrelId"]).
+config.py
 
-Email Settings: Update the SENDER_EMAIL and RECEIVER_EMAIL to match your team's routing.
+Customize the following settings according to your environment.
 
-🚀 How to Run the Agent:
+🔹 STATUS_KEYWORDS
 
-The Easiest Way (Recommended):
+Add keywords your logs use for HTTP or status codes.
 
-Windows: Simply double-click the run_agent.bat file.
+Example:
 
-Mac/Linux/Git Bash: Run ./run_agent.sh in your terminal.
-(These scripts will automatically activate your environment and run the code for you!)
+STATUS_KEYWORDS = ["Status", "StatusCode", "HttpCode"]
+🔹 CORRELATION_KEYWORDS
 
-The Manual Way:
-If you prefer running it manually via the terminal:
+Add keywords used for transaction or correlation tracking IDs.
 
-Bash
+Example:
+
+CORRELATION_KEYWORDS = ["X-Correlation-ID", "CorrelId"]
+🔹 Email Settings
+
+Update the sender and receiver email addresses:
+
+SENDER_EMAIL = "your_email@gmail.com"
+RECEIVER_EMAIL = "team_email@gmail.com"
+🚀 Running the Agent
+✅ Recommended Method (Automatic)
+🪟 Windows
+
+Simply double-click:
+
+run_agent.bat
+🍎 Mac / 🐧 Linux / Git Bash
+
+Run:
+
+./run_agent.sh
+
+These scripts automatically:
+
+Activate the virtual environment
+Run the project
+Handle execution setup for you
+🧑‍💻 Manual Method
+
+If you prefer running the project manually:
+
 python main.py
+📈 Outputs
 
-📈 Outputs:
+After execution, the agent automatically:
 
-Once the agent finishes running, it will:
+✅ Generates Clean CSV Files
 
-Save a clean CSV of merged logs in the data/ folder.
+Merged and processed logs are saved inside:
 
-Save a comprehensive text report in the output/ folder.
+data/
+✅ Creates Detailed Reports
 
-Send an immediate email alert for every failed transaction it finds.
+Comprehensive transaction analysis reports are saved inside:
+
+output/
+✅ Sends Instant Email Alerts
+
+For every failed transaction detected, the system:
+
+Identifies the root cause
+Generates AI-powered analysis
+Sends an automated alert email immediately
