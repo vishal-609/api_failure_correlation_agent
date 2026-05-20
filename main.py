@@ -5,7 +5,6 @@ from agent.failure_extractor import extract_failures
 from agent.correlation_engine import analyze_transactions
 from agent.llm_analyzer import analyze_transaction
 from agent.reporter import generate_report, save_report
-# IMPORT THE NEW VARIABLE HERE:
 from config import CSV_FILE_PATH, OUTPUT_FILE_PATH, TRANSACTION_DELAY_SECONDS
 from agent.email_notifier import send_alert_email
 

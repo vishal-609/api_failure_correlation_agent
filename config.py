@@ -15,6 +15,9 @@ RECEIVER_EMAIL = "vishalreceiver.2002@gmail.com"
 # Dependency chain 
 DEPENDENCY_CHAIN = "API -> APP_CONNECT -> MQ"
 
-# Status Code filtering (type all the corresponding keyword to status code in logs)
+# Status Code keywords to look for in logs (case-insensitive)
 STATUS_KEYWORDS = ["Status", "StatusCode", "code", "HttpCode"]
+
+# Correlation ID keywords to look for in logs (case-insensitive)
+CORRELATION_KEYWORDS = ["X-Correlation-ID", "CorrelId", "CorrelationId"]
 

@@ -1,6 +1,7 @@
 import re
 import csv
 import os
+from config import CORRELATION_KEYWORDS # Import your new variable
 
 def parse_logs():
     all_events = []
@@ -16,9 +17,13 @@ def parse_logs():
     appconnect_path = os.path.join(data_dir, 'appconnect.log')
     output_path = os.path.join(data_dir, 'merged_logs.csv')
 
-    apic_regex = re.compile(r'^(\S+)\s+\w+\s+\[apic-gateway\]\s+(?:\[X-Correlation-ID:\s+([^\]]+)\]|\[([^\]]+)\])\s+(.*)$')
-    mq_regex = re.compile(r'^(\S+)\s+\w+\s+\[ibm-mq\]\s+\[CorrelId:\s+([^\]]+)\]\s+(.*)$')
-    appc_regex = re.compile(r'^(\S+)\s+\w+\s+\[app-connect\]\s+(?:\[CorrelationId:\s+([^\]]+)\]|\[([^\]]+)\])\s+(.*)$')
+    # This builds a dynamic OR statement for your ID labels and keeps the raw bracket fallback
+    id_pattern = rf'(?:\[(?:{"|".join(CORRELATION_KEYWORDS)}):\s+([^\]]+)\]|\[([^\]]+)\])'
+
+    # Inject the universal id_pattern into all three regexes
+    apic_regex = re.compile(rf'^(\S+)\s+\w+\s+\[apic-gateway\]\s+{id_pattern}\s+(.*)$', re.IGNORECASE)
+    mq_regex = re.compile(rf'^(\S+)\s+\w+\s+\[ibm-mq\]\s+{id_pattern}\s+(.*)$', re.IGNORECASE)
+    appc_regex = re.compile(rf'^(\S+)\s+\w+\s+\[app-connect\]\s+{id_pattern}\s+(.*)$', re.IGNORECASE)
 
     if os.path.exists(apic_path):
         with open(apic_path, "r") as f:
@@ -52,8 +57,9 @@ def parse_logs():
                 match = mq_regex.match(line.strip())
                 if match:
                     ts = match.group(1)
-                    cid = match.group(2)
-                    msg = match.group(3)
+                    # MQ is now standardized to match the other two!
+                    cid = match.group(2) if match.group(2) else match.group(3)
+                    msg = match.group(4) 
 
                     event_type = ""
                     details = ""
