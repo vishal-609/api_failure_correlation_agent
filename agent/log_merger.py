@@ -1,7 +1,7 @@
-import re   # 're' stands for Regular Expressions, used to search for specific text patterns
-import csv  # 'csv' helps us create and write data into spreadsheet files
-import os   # 'os' helps us navigate folders and file paths on your computer
-from config import CORRELATION_KEYWORDS # Imports your custom list of ID keywords
+import re
+import csv
+import os
+from config import CORRELATION_KEYWORDS
 
 def parse_logs():
     # This empty list will eventually hold all the log entries from every system
@@ -139,6 +139,5 @@ def parse_logs():
         # Write all the actual data rows
         writer.writerows(all_events)
 
-# This line tells Python to actually run the function if you execute this file directly
 if __name__ == "__main__":
     parse_logs()

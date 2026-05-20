@@ -1,10 +1,10 @@
 import pandas as pd
-import re  # 're' stands for Regular Expressions, used for searching text
+import re
 import os
 from config import STATUS_KEYWORDS
 
 def extract_failures(df):
-    # SAFETY CHECK: If there is no data, or it's empty, or missing the 'eventType' column, stop and return an empty table
+    
     if df is None or df.empty or "eventType" not in df.columns:
         return pd.DataFrame()
 

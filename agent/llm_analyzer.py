@@ -1,11 +1,9 @@
 import os
-from dotenv import load_dotenv  # Used to securely load passwords and keys from the .env file
-from openai import OpenAI       # The tool we use to talk to the AI model
+from dotenv import load_dotenv
+from openai import OpenAI
 
-# Load the hidden environment variables
 load_dotenv()
 
-# Get the API key we saved. If it's missing, stop the program and warn the user.
 api_key = os.getenv("GROQ_API_KEY")
 if not api_key:
     raise ValueError("GROQ_API_KEY not found in .env")
@@ -91,5 +89,4 @@ No markdown or symbols like asterisks, hash marks, backticks, or dashes in the f
         return final_text.replace("*", "").replace("#", "").replace("`", "").strip()
         
     except Exception as e:
-        # If anything goes wrong (like a dropped internet connection), return the error message instead of crashing
         return f"Error: {str(e)}"

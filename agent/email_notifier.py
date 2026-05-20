@@ -1,17 +1,14 @@
-import smtplib  # The built-in Python tool for sending emails
+import smtplib
 import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from dotenv import load_dotenv  # Used to securely load hidden passwords
-
-# Import email settings from our config file
+from dotenv import load_dotenv
 from config import SMTP_SERVER, SMTP_PORT, SENDER_EMAIL, RECEIVER_EMAIL
 
-# Load the hidden passwords from the .env file
 load_dotenv()
 
 def send_alert_email(report_content, correlation_id="Unknown"):
-    # Get the email password securely without writing it directly in the code
+    
     password = os.getenv("SMTP_PASSWORD")
     
     # SAFETY CHECK: Stop and cancel the email if any login details are missing
@@ -51,5 +48,4 @@ def send_alert_email(report_content, correlation_id="Unknown"):
         # Close the connection when finished
         server.quit()
     except Exception as e:
-        # If the internet is down or login fails, print a warning instead of crashing
         print(f"\n[!] Failed to send email for {correlation_id}. Error: {str(e)}")
