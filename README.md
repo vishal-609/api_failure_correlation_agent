@@ -80,17 +80,38 @@ GROQ_API_KEY=your_groq_api_key_here
 SMTP_PASSWORD=your_email_app_password_here
 ```
 
+- `GROQ_API_KEY` is the API key used by the AI analysis integration in `llm_analyzer.py`. Get this key from your Groq account dashboard or API credentials page.
+- `SMTP_PASSWORD` is the app-specific password for your email account used to send alert emails. For Gmail, generate an App Password in your Google Account security settings, or use the equivalent SMTP app password mechanism for your email provider.
+
 > Keep `.env` out of version control.
 
 6. Update `config.py` for your environment.
 
+The configuration file controls input/output paths, timing behavior, alert delivery, and log parsing heuristics. Set values appropriate for your deployment and environment.
+
 Example:
 
 ```python
-STATUS_KEYWORDS = ["Status", "StatusCode", "code", "HttpCode"]
-CORRELATION_KEYWORDS = ["X-Correlation-ID", "CorrelId", "CorrelationId"]
+# Input and output files produced by the agent
+CSV_FILE_PATH = "output/merged_logs.csv"
+OUTPUT_FILE_PATH = "output/correlation_report.txt"
+
+# Timing controls
+TRANSACTION_DELAY_SECONDS = 2
+POLL_INTERVAL_SECONDS = 15
+
+# Email alert configuration
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
 SENDER_EMAIL = "your_email@gmail.com"
 RECEIVER_EMAIL = "team_email@gmail.com"
+
+# Dependency chain used for correlation sequencing
+DEPENDENCY_CHAIN = "API -> APP_CONNECT -> MQ"
+
+# Log parsing keywords (case-insensitive)
+STATUS_KEYWORDS = ["Status", "StatusCode", "code", "HttpCode"]
+CORRELATION_KEYWORDS = ["X-Correlation-ID", "CorrelId", "CorrelationId"]
 ```
 
 ## Running the agent

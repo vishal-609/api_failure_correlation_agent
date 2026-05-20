@@ -1,11 +1,10 @@
 #!/bin/bash
 echo "Starting API Failure Correlation Agent..."
 
-# Navigate to the folder where the script is located
-cd "$(dirname "$0")"
+# 1. Go directly to your project folder (using forward slashes for Bash)
+cd "C:/Users/vishal.rakesh.kumar/OneDrive - Accenture/Desktop/code/api_failure_correlation_agent"
 
-# Activate the virtual environment
-# (Checks for both Linux/Mac 'bin' folder and Windows Git Bash 'Scripts' folder)
+# 2. Activate the virtual environment
 if [ -d "venv/bin" ]; then
     source venv/bin/activate
 elif [ -d "venv/Scripts" ]; then
@@ -15,9 +14,9 @@ else
     exit 1
 fi
 
-# Run the agent (Use python3 for Mac/Linux environments)
+# 3. Run the python script
 python agent_runner.py
 
-# Deactivate the environment when done
+# 4. Deactivate the environment when done
 deactivate
 echo "Process complete."
