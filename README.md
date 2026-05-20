@@ -81,7 +81,19 @@ SMTP_PASSWORD=your_email_app_password_here
 ```
 
 - `GROQ_API_KEY` is the API key used by the AI analysis integration in `llm_analyzer.py`. Get this key from your Groq account dashboard or API credentials page.
-- `SMTP_PASSWORD` is the app-specific password for your email account used to send alert emails. For Gmail, generate an App Password in your Google Account security settings, or use the equivalent SMTP app password mechanism for your email provider.
+- `SMTP_PASSWORD` is the app-specific password for your email account used to send alert emails.
+
+To get an SMTP app password for Gmail:
+1. Go to https://myaccount.google.com.
+2. Sign in with the Google account you will use for SMTP.
+3. Select "Security" from the left menu.
+4. Under "Signing in to Google," make sure 2-Step Verification is turned on.
+5. After enabling 2-Step Verification, return to the "Security" page.
+6. Click "App Passwords."
+7. Under "Select app," choose "Mail." Under "Select device," choose "Other" and enter a name like "API Failure Agent."
+8. Click "Generate." Copy the 16-character password and use it as `SMTP_PASSWORD` in `.env`.
+
+For other providers, use the equivalent app-specific password or SMTP authorization token process in your email account settings.
 
 > Keep `.env` out of version control.
 
