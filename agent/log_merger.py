@@ -118,3 +118,4 @@ def parse_logs():
 
 if __name__ == "__main__":
     parse_logs()
+    
