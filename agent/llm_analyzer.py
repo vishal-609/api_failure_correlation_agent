@@ -1,27 +1,33 @@
 import os
-from dotenv import load_dotenv
-from openai import OpenAI
+from dotenv import load_dotenv  # Used to securely load passwords and keys from the .env file
+from openai import OpenAI       # The tool we use to talk to the AI model
 
+# Load the hidden environment variables
 load_dotenv()
 
+# Get the API key we saved. If it's missing, stop the program and warn the user.
 api_key = os.getenv("GROQ_API_KEY")
 if not api_key:
     raise ValueError("GROQ_API_KEY not found in .env")
 
+# Set up the connection to the AI provider (Groq)
 client = OpenAI(
     api_key=api_key,
     base_url="https://api.groq.com/openai/v1",
 )
 
 def analyze_transaction(item):
+    # Extract the basic information from the transaction data we passed in
     cid = item.get("correlationId", "UNKNOWN")
     failures = item.get("failures", [])
     events = item.get("events", [])
     chain = item.get("dependency_chain", "None")
 
+    # Convert the lists of errors and events into readable text blocks for the AI to read
     failure_text = "\n".join([f"{f.get('system', 'Unknown')} - {f.get('eventType', 'Unknown')} - {f.get('details_or_flowName', '')}" for f in failures])
     timeline = "\n".join([f"{e.get('timestamp', 'Unknown')} - {e.get('system', 'Unknown')} - {e.get('eventType', 'Unknown')} - {e.get('details_or_flowName', '')}" for e in events])
 
+    # This is the exact instruction manual and data we are sending to the AI
     prompt = f"""You are an expert Site Reliability Engineer.
 
 Dependency Chain:
@@ -62,24 +68,28 @@ No markdown or symbols like asterisks, hash marks, backticks, or dashes in the f
 """
 
     try:
+        # Send the prompt to the AI and wait for its response
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile", 
             messages=[
                 {"role": "system", "content": "You are an expert Site Reliability Engineer that follows structural algorithms without deviation."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.0 # Force deterministic, zero-hallucination execution
+            temperature=0.0 # Temperature 0.0 means the AI will be strictly factual and not "creative" or random
         )
         
+        # Grab the actual text the AI sent back
         raw_text = response.choices[0].message.content
         
-        # Strip out the thinking block so your final email and file stay perfectly clean
+        # Remove the <thinking> block from the AI's response so your final report looks clean and professional
         if "</thinking>" in raw_text:
             final_text = raw_text.split("</thinking>")[-1].strip()
         else:
             final_text = raw_text
 
+        # Remove any leftover formatting symbols (like bolding or code blocks) and return the final text
         return final_text.replace("*", "").replace("#", "").replace("`", "").strip()
         
     except Exception as e:
+        # If anything goes wrong (like a dropped internet connection), return the error message instead of crashing
         return f"Error: {str(e)}"
