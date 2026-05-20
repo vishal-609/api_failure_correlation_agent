@@ -152,9 +152,9 @@ python main.py
 
 When the process completes successfully, it will:
 
-- produce merged CSV files in `data/`
-- write analysis reports in `output/`
-- send email alerts for detected failed transactions
+- produce merged CSV files and failed_logs in `output/`
+- write coorelation analysis report in `output/`
+- send email alerts for detected failed transactions one at a time
 
 ## Summary
 
