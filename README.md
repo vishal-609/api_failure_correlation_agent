@@ -1,64 +1,59 @@
-# API Failure Correlation Agent 🚨
+# API Failure Correlation Agent
 
-An automated Site Reliability Engineering (SRE) tool that parses multi-system logs, correlates transactions, and uses AI to determine the root cause of API failures.
+A professional Site Reliability Engineering (SRE) utility for correlating API failures across IBM API Gateway, IBM MQ, and App Connect.
 
-## 🌟 What This Does
+This project ingests logs from multiple systems, unifies them using correlation IDs, detects failure patterns, and generates actionable insight using AI-driven analysis.
 
-This agent helps SRE teams quickly identify and resolve API failures across complex microservice environments.
+## What it does
 
-- **Reads** logs from IBM API Gateway, IBM MQ, and App Connect.
-- **Merges** logs using a shared correlation ID.
-- **Detects** failure points such as HTTP 5xx or error events.
-- **Analyzes** the timeline with an AI model (Groq Llama 3).
-- **Alerts** the team with a summary email containing the root cause and recommended fix.
+- Collects and parses log data from IBM API Gateway, IBM MQ, and App Connect.
+- Aligns events across systems using correlation IDs.
+- Identifies failure indicators such as HTTP 5xx responses and error events.
+- Builds a chronological transaction timeline for each correlated flow.
+- Uses an AI model to summarize root cause and remediation recommendations.
+- Sends alert notifications to operations teams.
 
----
-
-## 📁 Project Structure
+## Project layout
 
 ```text
 api_failure_correlation_agent/
-│
-├── agent/                      # Core logic scripts
-│   ├── correlation_engine.py   # Builds transaction timelines
-│   ├── data_loader.py          # Loads combined CSV data
-│   ├── email_notifier.py       # Sends SMTP email alerts
-│   ├── failure_extractor.py    # Isolates failed transactions
-│   ├── llm_analyzer.py         # Talks to the Groq AI model
-│   ├── log_merger.py           # Parses raw logs into CSV
-│   └── reporter.py             # Generates the text report
-│
-├── data/                       # Raw log files and generated CSVs
+├── agent/
+│   ├── correlation_engine.py   # transaction timeline builder
+│   ├── data_loader.py          # merged CSV loader
+│   ├── email_notifier.py       # SMTP alert sender
+│   ├── failure_extractor.py    # failed transaction detector
+│   ├── llm_analyzer.py         # AI analysis integration
+│   ├── log_merger.py           # raw log parser and merger
+│   └── reporter.py             # report generator
+├── data/                       # raw logs and merged outputs
 │   ├── apic.log
 │   ├── appconnect.log
 │   └── mq.log
-│
-├── output/                     # Generated reports are saved here
-│
-├── .env                        # Hidden passwords and API keys
-├── config.py                   # Dynamic variables and settings
-├── main.py                     # Main Python execution script
-├── requirements.txt            # Python dependencies
+├── output/                     # generated reports
+├── .env                        # secrets and credentials
+├── config.py                   # environment-specific settings
+├── main.py                     # execution entry point
+├── requirements.txt            # Python requirements
 ├── run_agent.bat               # Windows launcher
-└── run_agent.sh                # Mac/Linux/Git Bash launcher
+└── run_agent.sh                # macOS/Linux launcher
 ```
 
-## ⚙️ Setup & Installation
+## Setup
 
-### 1️⃣ Clone the repository
+1. Clone the repository:
 
 ```bash
 git clone <your-repo-url>
 cd api_failure_correlation_agent
 ```
 
-### 2️⃣ Create a virtual environment
+2. Create a virtual environment:
 
 ```bash
 python -m venv venv
 ```
 
-### 3️⃣ Activate the virtual environment
+3. Activate the virtual environment:
 
 Windows:
 
@@ -72,48 +67,35 @@ macOS / Linux / Git Bash:
 source venv/bin/activate
 ```
 
-### 4️⃣ Install dependencies
+4. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-This installs dependencies such as:
-
-- pandas
-- Groq SDK
-- python-dotenv
-- other required libraries
-
-### 5️⃣ Create the `.env` file
-
-Create a file named `.env` in the project root and add your credentials:
+5. Create the `.env` file in the project root and add credentials:
 
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 SMTP_PASSWORD=your_email_app_password_here
 ```
 
-> Never commit `.env` or share it publicly.
+> Keep `.env` out of version control.
 
-### 6️⃣ Configure the project
+6. Update `config.py` for your environment.
 
-Open `config.py` and update the settings for your environment.
-
-Example values:
+Example:
 
 ```python
-STATUS_KEYWORDS = ["Status", "StatusCode", "HttpCode"]
-CORRELATION_KEYWORDS = ["X-Correlation-ID", "CorrelId"]
+STATUS_KEYWORDS = ["Status", "StatusCode", "code", "HttpCode"]
+CORRELATION_KEYWORDS = ["X-Correlation-ID", "CorrelId", "CorrelationId"]
 SENDER_EMAIL = "your_email@gmail.com"
 RECEIVER_EMAIL = "team_email@gmail.com"
 ```
 
----
+## Running the agent
 
-## 🚀 Running the Agent
-
-### Recommended: automatic launch
+Recommended:
 
 Windows:
 
@@ -127,34 +109,20 @@ macOS / Linux / Git Bash:
 ./run_agent.sh
 ```
 
-These launcher scripts typically:
-
-- activate the virtual environment
-- run the project
-- handle execution setup
-
-### Manual method
+Manual:
 
 ```bash
 python main.py
 ```
 
----
+## Output
 
-## 📈 Outputs
+When the process completes successfully, it will:
 
-When the agent runs successfully, it will:
+- produce merged CSV files in `data/`
+- write analysis reports in `output/`
+- send email alerts for detected failed transactions
 
-- generate merged CSV files in `data/`
-- create detailed analysis reports in `output/`
-- send instant email alerts for detected failed transactions
+## Summary
 
-## ✅ Summary
-
-This repository is built to simplify failure correlation across:
-
-- IBM API Gateway logs
-- IBM MQ logs
-- App Connect logs
-
-It uses correlation IDs, timeline analysis, and AI to pinpoint root causes quickly and notify your team automatically.
+This repository provides a structured approach for failure correlation across IBM API Gateway, IBM MQ, and App Connect log streams. It combines log parsing, correlation tracking, transaction timeline assembly, and AI-assisted analysis to help operations teams identify root cause and reduce mean time to resolution.
