@@ -44,6 +44,7 @@ api_failure_correlation_agent/
 
 ## ⚙️ Setup & Installation
 
+```text
 ### 1️⃣ Clone or Download the Project
 
 Download the repository or clone it using Git:
