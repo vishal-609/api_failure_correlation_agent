@@ -43,7 +43,7 @@ api_failure_correlation_agent/
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/vishal-609/api_failure_correlation_agent.git
 cd api_failure_correlation_agent
 ```
 
