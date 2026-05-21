@@ -142,10 +142,12 @@ macOS / Linux / Git Bash:
 ./run_agent.sh
 ```
 
+> **Important:** Before running the launcher scripts, update the file paths in `run_agent.bat` and `run_agent.sh` to match your local environment. Specifically, modify the `cd` command to point to your project directory.
+
 Manual:
 
 ```bash
-python main.py
+python agent_runner.py
 ```
 
 ## Output

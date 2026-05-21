@@ -2,7 +2,7 @@
 CSV_FILE_PATH = "output/merged_logs.csv"
 OUTPUT_FILE_PATH = "output/correlation_report.txt"
 
-# Delays
+# Delays (in seconds)
 TRANSACTION_DELAY_SECONDS = 2 # Delay for each transaction id 
 POLL_INTERVAL_SECONDS = 15 # repeatition of agent_runner for entire transaction so it keeps running
 
