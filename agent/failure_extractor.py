@@ -19,13 +19,8 @@ def extract_failures(df):
     
     # Loop through every single row in the data table one by one
     for _, row in df.iterrows():
-        
-        # CONDITION 1: If the event type explicitly says "ERROR", save this transaction's ID
-        if row["eventType"] == "ERROR":
-            failed_ids.add(row["correlationId"])
-            continue # Move on to check the next row immediately
             
-        # CONDITION 2: Check if there is text in the 'details_or_flowName' column
+        # CONDITION : Check if there is text in the 'details_or_flowName' column
         if pd.notna(row.get("details_or_flowName")):
             # Search the text for our status code pattern (ignoring capital/lowercase letters)
             match = re.search(pattern, str(row["details_or_flowName"]), re.IGNORECASE)

@@ -33,25 +33,15 @@ def analyze_transactions(df):
             
             # Add this entry to our complete timeline of events
             events.append(event_data)
-            
-            is_failure = False  # Assume the event is successful until proven otherwise
-            
-            # CONDITION 1: The log explicitly states it is an error
-            if row["eventType"] == "ERROR":
-                is_failure = True
-            
-            # CONDITION 2: Check for HTTP status codes (like 404 or 500)
+
+            # CONDITION : Check for HTTP status codes (like 404 or 500)
             if pd.notna(row.get("details_or_flowName")):
                 # Search for 'Status=' or 'StatusCode=' followed by a number
                 match = re.search(r'Status(?:Code)?=(\d+)', str(row["details_or_flowName"]))
                 
                 # If a code is found, flag it if it is outside the 200-299 success range
                 if match and not (200 <= int(match.group(1)) <= 299):
-                    is_failure = True
-                    
-            # If either condition marked this as a failure, save it to our failures list
-            if is_failure:
-                failures.append(event_data)
+                    failures.append(event_data)
                 
         # If this transaction had at least one failure, save its entire history for the final report
         if failures:
